@@ -35,8 +35,6 @@ jobs:
                       -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                       -H "Content-Type: text/plain; charset=utf-8" \
                       -d $'{
-                    "title": "$TITLE",
-                    "body": "$BODY",
-                    "assignees": [],
-                    "labels": []
+                    "title": $TITLE,
+                    "body": $BODY
                   }'
