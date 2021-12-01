@@ -14,6 +14,10 @@ jobs:
             - name: Write artifcat
               run: |
                   echo "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" | > portal-release.txt
+            - name: Download a single artifact
+              uses: actions/download-artifact@v2
+              with:
+                  name: portal-release
             - name: 'Upload Artifact'
               uses: actions/upload-artifact@v2
               with:
