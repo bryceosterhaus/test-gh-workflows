@@ -11,6 +11,9 @@ jobs:
               run: |
                   curl -sL https://api.github.com/repos/liferay/liferay-portal/releases/latest | \
                   jq -r ".tag_name" | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
+            - name: Write artifcat
+              run: |
+                  echo "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" | > portal-release.txt
             - name: 'Upload Artifact'
               uses: actions/upload-artifact@v2
               with:
