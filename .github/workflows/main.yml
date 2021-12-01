@@ -6,23 +6,31 @@ jobs:
     check:
         runs-on: ubuntu-latest
         steps:
-          - name: Fetch release version
-            id: fetch-latest
-            run: |
-                curl -sL https://api.github.com/repos/liferay/liferay-portal/releases/latest | \
-                jq -r ".tag_name" | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
+            - name: Fetch release version
+              id: fetch-latest
+              run: |
+                  curl -sL https://api.github.com/repos/liferay/liferay-portal/releases/latest | \
+                  jq -r ".tag_name" | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
 
-          - name: Write file
-            run: echo "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" > portal-release.txt
+            - name: Write file
+              run: echo "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" > portal-release.txt
 
-          - name: Cache Latest Portal Release Version
-            uses: actions/cache@v2
-            id: cache-version
-            with:
-              path: ./portal-release.txt
-              key: ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
+            - name: Cache Latest Portal Release Version
+              uses: actions/cache@v2
+              id: cache-version
+              with:
+                  path: ./portal-release.txt
+                  key: ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
 
-
-          - name: Create Issue
-            if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
-            run: echo "CREATING A NEW ISSUE"
+            - name: Create Issue
+              # if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
+              run: |
+                  curl -X "POST" "https://api.github.com/repos/bryceosterhaus/test-gh-workflows/issues?state=all" \
+                      -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                      -H "Content-Type: text/plain; charset=utf-8" \
+                      -d $'{
+                    "title": "Update dependencies for Liferay ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}",
+                    "body": "TBD",
+                    "assignees": [],
+                    "labels": []
+                  }'
