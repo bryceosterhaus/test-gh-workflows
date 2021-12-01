@@ -31,9 +31,9 @@ jobs:
                   curl -X "POST" "https://api.github.com/repos/${{ github.repository }}/issues?state=all" \
                       -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                       -H "Content-Type: text/plain; charset=utf-8" \
-                      -d $'{
-                    "title": "${{ env.TITLE }}",
-                    "body": "${{ env.BODY }}",
-                    "assignees": [],
-                    "labels": []
-                  }'
+                      -d ${{
+                        fromJSON({
+                          "title": "${{ env.TITLE }}",
+                          "body": "${{ env.BODY }}"
+                        })
+                      }}
