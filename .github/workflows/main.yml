@@ -29,8 +29,8 @@ jobs:
                       -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                       -H "Content-Type: text/plain; charset=utf-8" \
                       -d $'{
-                    "title": ${{env.TITLE}},
-                    "body": $BODY
+                    "title": ${{ env.TITLE }},
+                    "body": ${{ env.BODY }}
                   }'
               env:
                   TITLE: Update dependencies for Liferay ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
