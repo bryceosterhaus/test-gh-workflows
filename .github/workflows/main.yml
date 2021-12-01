@@ -23,14 +23,17 @@ jobs:
                   key: ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
 
             - name: Create Issue
-              # if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
+#               if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
               run: |
-                  curl -X "POST" "https://api.github.com/repos/bryceosterhaus/test-gh-workflows/issues?state=all" \
+                  curl -X "POST" "https://api.github.com/repos/${{ github.repository }}/issues?state=all" \
                       -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                       -H "Content-Type: text/plain; charset=utf-8" \
                       -d $'{
                     "title": "Update dependencies for Liferay ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}",
-                    "body": "TBD",
+                    "body": "Make sure to check the following dependencies to ensure they are updated for latest liferay-portal release.
+                      - [ ] [Liferay Theme Tasks](https://github.com/bryceosterhaus/liferay-frontend-projects/blob/master/projects/js-themes-toolkit/packages/liferay-theme-tasks/lib/devDependencies.js#L27)
+                      - [ ] Create/Update target-platform for ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
+                    ",
                     "assignees": [],
                     "labels": []
                   }'
