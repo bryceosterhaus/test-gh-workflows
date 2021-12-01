@@ -16,7 +16,7 @@ jobs:
                   curl -sL https://api.github.com/repos/liferay/liferay-portal/releases/latest | \
                   jq -r ".tag_name" | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
             - name: Create Issue
-              if: ${{ cat portal-release.txt | xargs -n2 sh -c 'test $1 = "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" }}
+              if: cat portal-release.txt | xargs -n2 sh -c 'test $1 = "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}"
               run: echo "CREATING ISSUE"
             - name: 'Upload Artifact'
               uses: actions/upload-artifact@v2
