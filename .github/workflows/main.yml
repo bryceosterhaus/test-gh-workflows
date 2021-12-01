@@ -34,7 +34,4 @@ jobs:
                   }'
               env:
                   TITLE: Update dependencies for Liferay ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
-                  BODY: |
-                      Make sure to check the following dependencies to ensure they are updated for latest liferay-portal release.
-                        - [ ] [Liferay Theme Tasks](https://github.com/bryceosterhaus/liferay-frontend-projects/blob/master/projects/js-themes-toolkit/packages/liferay-theme-tasks/lib/devDependencies.js#L27)
-                        - [ ] Create/Update target-platform for ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
+                  BODY: Make sure to check the following dependencies to ensure they are updated for latest liferay-portal release.\n- [ ] [Liferay Theme Tasks](https://github.com/bryceosterhaus/liferay-frontend-projects/blob/master/projects/js-themes-toolkit/packages/liferay-theme-tasks/lib/devDependencies.js#L27)\n- [ ] Create/Update target-platform for ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
