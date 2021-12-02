@@ -8,6 +8,8 @@ jobs:
         steps:
             - name: Fetch release version
               id: fetch-latest
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: gh release view --repo "liferay/liferay-portal" --jq ".tag_name" | echo | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
 
             - name: Write file
@@ -29,4 +31,4 @@ jobs:
                       Make sure to check the following dependencies to ensure they are updated for latest liferay-portal release.
                       - [ ] Check [Liferay Theme Tasks](https://github.com/liferay/liferay-frontend-projects/blob/master/projects/js-themes-toolkit/packages/liferay-theme-tasks/lib/devDependencies.js#L27)
                       - [ ] Create/Update target-platform for ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
-              run: gh pr create --repo ${{ github.repository }} --title ${{ toJSON(env.TITLE) }} --body ${{ toJSON(env.BODY) }}
+              run: gh pr create --repo --repo $GITHUB_REPOSITORY --title ${{ toJSON(env.TITLE) }} --body ${{ toJSON(env.BODY) }}
