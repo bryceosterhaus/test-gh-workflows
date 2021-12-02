@@ -25,6 +25,8 @@ jobs:
             - name: Create Issue
 #               if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
               env:
+                  OWNER: ${{ github.repository_owner }}
+                  REPO: ${{ github.event.repository.name }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   TITLE: Update dependencies for Liferay ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
                   BODY: |
