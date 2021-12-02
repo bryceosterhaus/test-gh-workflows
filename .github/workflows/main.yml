@@ -31,6 +31,7 @@ jobs:
               run: |
                 gh issue create --repo $GITHUB_REPOSITORY \
                 --title "Update dependencies for Liferay ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" \
-                --body "Make sure to check the following dependencies to ensure they are updated for latest liferay-portal release.
-                      - [ ] Check [Liferay Theme Tasks](https://github.com/liferay/liferay-frontend-projects/blob/master/projects/js-themes-toolkit/packages/liferay-theme-tasks/lib/devDependencies.js#L27)
-                      - [ ] Create/Update target-platform for ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}"
+                --body \
+                "Make sure to check the following dependencies to ensure they are updated for latest liferay-portal release.
+                - [ ] Check [Liferay Theme Tasks](https://github.com/liferay/liferay-frontend-projects/blob/master/projects/js-themes-toolkit/packages/liferay-theme-tasks/lib/devDependencies.js#L27)
+                - [ ] Create/Update target-platform for ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}"
