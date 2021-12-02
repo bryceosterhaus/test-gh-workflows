@@ -8,7 +8,7 @@ jobs:
         steps:
             - name: Fetch release version
               id: fetch-latest
-              run: gh release view --repo "liferay/liferay-portal" --jq ".tag_name" | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
+              run: gh release view --repo "liferay/liferay-portal" --jq ".tag_name" | echo | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
 
             - name: Write file
               run: echo "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" > portal-release.txt
