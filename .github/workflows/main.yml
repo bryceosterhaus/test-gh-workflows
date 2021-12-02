@@ -25,6 +25,7 @@ jobs:
             - name: Create Issue
 #               if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
               env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   TITLE: Update dependencies for Liferay ${{ steps.fetch-latest.outputs.LATEST_RELEASE }}
                   BODY: |
                       Make sure to check the following dependencies to ensure they are updated for latest liferay-portal release.
