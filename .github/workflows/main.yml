@@ -10,7 +10,7 @@ jobs:
               id: fetch-latest
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: gh release view --repo "liferay/liferay-portal" --json "tagName" | echo | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
+              run: gh release view --repo "liferay/liferay-portal" --json "tagName" | xargs echo | xargs -I {} echo "::set-output name=LATEST_RELEASE::{}"
 
             - name: Write file
               run: echo "${{ steps.fetch-latest.outputs.LATEST_RELEASE }}" > portal-release.txt
