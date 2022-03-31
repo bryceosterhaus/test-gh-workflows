@@ -12,11 +12,12 @@ jobs:
         if: github.repository_owner == 'bryceosterhaus'
         steps:
             - name: Get Assignee
+              run: echo "DAY::$(date +%d)" >> $GITHUB_ENV
               run: echo "::set-env name=ASSIGNEE::@bryceosterhaus"
-              if: ${{ $(date +%d) < 10 }}
-              run: echo "::set-env name=ASSIGNEE::blahblah"
-              if: ${{ $(date +%d <) 20 }}
-              run: echo "::set-env name=ASSIGNEE::blahblahblah"
+              if: ${{ $DAY < 10 }}
+              run: echo "::set-env name=ASSIGNEE::@kresimir-coko"
+              if: ${{ $DAY < 20 }}
+              run: echo "::set-env name=ASSIGNEE::@izaera"
 
             - name: Create Issue
               if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
