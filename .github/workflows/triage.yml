@@ -11,12 +11,13 @@ jobs:
         runs-on: ubuntu-latest
         if: github.repository_owner == 'bryceosterhaus'
         steps:
-            - name: Get Assignee
-              run: echo "DAY::$(date +%d)" >> $GITHUB_ENV
-              run: echo "::set-env name=ASSIGNEE::@bryceosterhaus"
-              if: ${{ $DAY < 10 }}
+            - run: echo "DAY::$(date +%d)" >> $GITHUB_ENV
+            - run: echo "::set-env name=ASSIGNEE::@bryceosterhaus"
+            
+            - if: ${{ $DAY < 10 }}
               run: echo "::set-env name=ASSIGNEE::@kresimir-coko"
-              if: ${{ $DAY < 20 }}
+              
+            - if: ${{ $DAY < 20 }}
               run: echo "::set-env name=ASSIGNEE::@izaera"
 
             - name: Create Issue
