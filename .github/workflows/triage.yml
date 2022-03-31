@@ -13,9 +13,9 @@ jobs:
         steps:
             - name: Get Assignee
               run: echo "::set-env name=ASSIGNEE::@bryceosterhaus"
-              if: ${{ date +%d < 10 }}
+              if: ${{ $(date +%d) < 10 }}
               run: echo "::set-env name=ASSIGNEE::blahblah"
-              if: ${{ date +%d < 20 }}
+              if: ${{ $(date +%d <) 20 }}
               run: echo "::set-env name=ASSIGNEE::blahblahblah"
 
             - name: Create Issue
