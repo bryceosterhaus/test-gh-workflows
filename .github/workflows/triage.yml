@@ -11,18 +11,12 @@ jobs:
         runs-on: ubuntu-latest
         if: github.repository_owner == 'bryceosterhaus'
         steps:
-            - run: echo "::set-env name=DAY::$(date +%d)"
-            - run: echo "::set-env name=ASSIGNEE::@bryceosterhaus"
-            
-            - if: ${{ $DAY < 10 }}
-              run: echo "::set-env name=ASSIGNEE::@kresimir-coko"
-              
-            - if: ${{ $DAY < 20 }}
-              run: echo "::set-env name=ASSIGNEE::@izaera"
+            - id: get-day
+              run: echo "::set-output name=DAY::$(date +%d)"
 
             - name: Create Issue
-              if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
               env:
+                  ASSIGNEE: ${{ (steps.get-day.outputs.DAY < 10 && "@kresimir-coko") || (steps.get-day.outputs.DAY < 20 && "@izaera") || "@bryceosterhaus }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   gh issue create --repo $GITHUB_REPOSITORY \
