@@ -1,0 +1,30 @@
+name: Weekly Triage assignment
+
+on:
+    schedule:
+        # This happens weekly on Monday
+        - cron: '0 0 * * 1'
+    workflow_dispatch:
+
+jobs:
+    create-issue:
+        runs-on: ubuntu-latest
+        if: github.repository_owner == 'bryceosterhaus'
+        steps:
+            - name: Get Assignee
+              run: echo "::set-env name=ASSIGNEE::@bryceosterhaus"
+              if: ${{ date +%d < 10 }}
+              run: echo "::set-env name=ASSIGNEE::blahblah"
+              if: ${{ date +%d < 20 }}
+              run: echo "::set-env name=ASSIGNEE::blahblahblah"
+
+            - name: Create Issue
+              if: ${{ steps.cache-version.outputs.cache-hit != 'true' }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh issue create --repo $GITHUB_REPOSITORY \
+                  --title "Weekly Issue Triage" \
+                  --assignee $ASSIGNEE \
+                  --body \
+                  "It's that time of the week. Go through our issue backlog and triage by closing and adding labels."
