@@ -1,10 +1,7 @@
 name: Weekly Triage assignment
 
 on:
-    push:
-    schedule:
-        # This happens weekly on Monday
-        - cron: '0 0 * * 1'
+    push
 
 jobs:
     create-issue:
